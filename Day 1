@@ -1,0 +1,49 @@
+import pandas as pd
+import time
+from datetime import datetime
+
+
+day = 1
+
+with open(f'{day}.txt','r') as f:
+    data = [int(line.strip()) for line in f.readlines()]
+    
+if __name__ == '__main__':
+    
+    t1 = time.time()
+    
+    print(f"**This is AoC {day} !**")
+    
+    print("Part 1:")
+    
+    up = 0
+
+    
+    for i in range(0,len(data)-1):
+        if data[i+1] > data[i]:
+            up += 1           
+    print(f'{up} measurements are larger than the previous measurement!')
+
+    
+    print("Part 2:")
+    
+    #dataset is the same!
+    
+    up = 0
+
+    for i in range(0,len(data)-1):
+        first = sum(data[i:i+3])
+        second = sum(data[i+1:i+4])
+        if first < second:
+            up +=1
+     
+    print(f'{up} sums are larger than the previous sums!')
+    
+    
+    t2 = time.time()
+
+    print(f'Process took: {round(t2-t1,5)} seconds.')
+
+            
+
+        
