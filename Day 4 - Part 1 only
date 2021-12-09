@@ -1,0 +1,40 @@
+day = 4
+
+print(f"**This is AoC {day} !**")
+
+with open(f'{day}.txt') as f:
+
+    nums = [int(i) for i in f.readline().strip('\n').split(',')]
+    boards = []
+    while f.readline():
+        card = []
+        for i in range(5): # rows
+            card.append([int(x) for x in f.readline().strip('\n').split(' ') if x != ''])
+
+        for i in range(5): # columns
+            col = [] 
+            col.append(card[0][i])
+            col.append(card[1][i])
+            col.append(card[2][i])
+            col.append(card[3][i])
+            col.append(card[4][i])
+            card.append(col)
+        
+        boards.append(card)
+        
+# boards list includes list of cards that have 10 list of items, 5 rows and 5 columns
+
+def winner():
+    for num in nums:
+            for x, card in enumerate(boards):
+                for i, sublist in enumerate(card):
+                    if num in sublist:
+                        sublist.remove(num)
+                    if not sublist:
+                        return boards[x], num
+                        
+                    
+lst, num = winner() 
+
+result = (sum(sum(x) for x in lst[0:5]) * num)
+print("Part 1 result is {},".format(result))
