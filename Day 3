@@ -1,0 +1,105 @@
+import pandas as pd
+from collections import Counter
+import time
+
+
+day = 3
+
+with open(f'{day}.txt') as f:
+    data = [line.strip() for line in f.readlines()]
+
+
+if __name__ == '__main__':
+    
+    t1 = time.time()
+    
+    print("**This is AoC day 1!**")
+    
+    print("Part 1:")
+    gamma  = []
+    epsilon  = []
+
+    for bit in range(0,len(data[0])):
+        bt = Counter(int(item[bit]) for item in data)
+        x = [key for key, _ in bt.most_common()]
+        gamma.append(x[0])
+        epsilon.append(x[1])
+        
+    gamma = ''.join(str(item) for item in gamma)
+    epsilon = ''.join(str(item) for item in epsilon)
+
+
+    # bytes to decimal conversion
+    gamma = int(gamma,2)
+    epsilon = int(epsilon,2)
+
+    print(f"Result is: {gamma*epsilon}")
+
+
+    print("Part 2:")
+
+    # oxygen
+
+    oxy_data = data.copy()
+    i = 0
+    while len(oxy_data)>1:
+        
+        zeroes = []
+        ones = []
+
+        for byte in range(0,len(oxy_data)):
+            if oxy_data[byte][i] == '0':
+                zeroes.append(oxy_data[byte])
+            else:
+                ones.append(oxy_data[byte])
+                
+        if len(zeroes) > len(ones):
+            oxy_data = zeroes
+        else:
+            oxy_data = ones
+            
+        i += 1
+        
+    oxy = int(oxy_data[0],2)
+
+
+    # C02
+
+    co2_data = data.copy()
+    i = 0
+    while len(co2_data)>1:
+        
+        zeroes = []
+        ones = []
+
+        for byte in range(0,len(co2_data)):
+            if co2_data[byte][i] == '0':
+                zeroes.append(co2_data[byte])
+            else:
+                ones.append(co2_data[byte])
+                
+        if len(zeroes) > len(ones):
+            co2_data = ones
+        else:
+            co2_data = zeroes
+            
+        i += 1
+        
+    co2 = int(co2_data[0],2)
+
+    print(f"Result is: {co2*oxy}")
+    
+    t2 = time.time()
+
+    print(f'Process took: {round(t2-t1,5)} seconds.')
+
+            
+
+
+
+    
+
+
+
+
+
