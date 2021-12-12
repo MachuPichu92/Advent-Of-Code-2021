@@ -1,0 +1,24 @@
+day = 6
+
+with open(f'{day}.txt') as f:
+    data = [int(x) for x in f.read().split(',')]
+
+def get_fish(days):
+    
+    fishes =  data
+    
+    for day in range(days):
+        
+        zeroes = fishes.count(0)
+        
+        if zeroes > 0:
+            
+            fishes = [7 if x == 0 else x for x in fishes]
+            fishes.extend([9]*zeroes)
+            
+        fishes = [x - 1 for x in fishes]
+        
+    return len(fishes)
+
+print("First task result is: ", get_fish(80))
+print("Second task result is: ", get_fish(256))
