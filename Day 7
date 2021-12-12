@@ -1,0 +1,28 @@
+from statistics import median, mean
+import math
+
+day =  7
+
+with open (f'{day}.txt') as f:
+    data = [int(x) for x in f.readline().split(',')]
+ 
+middle = math.trunc(mean(data))
+median = math.trunc(median(data))
+
+fuel = 0 # task1
+fuel_2 = 0 # task2
+
+for pos in data:
+    fuel += abs(pos-median)
+    fuel_2 += sum([x for x in range(abs(pos-middle)+1)])
+
+
+print('Task 1 result is:',fuel)
+print('Task 2 result is:',fuel_2)
+
+
+
+    
+    
+    
+
