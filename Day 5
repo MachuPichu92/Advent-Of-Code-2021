@@ -1,0 +1,48 @@
+import collections
+import copy
+
+day = 5
+
+with open (f'{day}.txt') as f:
+    data = [line.strip().split(' ') for line in f.readlines()]
+
+# Part 1:
+
+pos = []
+
+for coord in data:
+    left_pos = [int(x) for x in coord[0].split(',')]
+    right_pos = [int(x) for x in coord[2].split(',')]
+    pos.append([left_pos,right_pos])
+
+
+straight_lines = []
+diagonals = []
+
+for (x1,y1),(x2,y2) in pos:
+    if x1 == x2:
+        for y in range(min(y1,y2),max(y1,y2)+1):
+            straight_lines.append((x1,y))
+    elif y1 == y2:
+        for x in range(min(x1,x2), max(x1,x2)+1):
+            straight_lines.append((x,y1))
+    else: # Part 2:
+        xi = 1 if x1 < x2 else -1
+        yi = 1 if y1 < y2 else -1
+        y = y1
+    
+        for x in range(x1,x2+ xi, xi):
+            diagonals.append((x,y))
+            y += yi
+
+all_lines = straight_lines + diagonals
+straight_lines = collections.Counter(straight_lines)
+all_lines = collections.Counter(all_lines)
+
+intersects = len([k for k, v in straight_lines.items() if v>1])
+intersects_2 = len([k for k, v in all_lines.items() if v>1])
+
+print("Result for Task 1 is: {}.".format(intersects))
+print("Result for Task 2 is: {}.".format(intersects_2))
+
+
