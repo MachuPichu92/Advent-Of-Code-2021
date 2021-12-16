@@ -1,0 +1,29 @@
+from collections import Counter, defaultdict
+day =  8
+
+with open (f'{day}.txt') as f:
+
+    data = [x.split('|') for x in f]
+
+input , output = [ [x[0] for x in data] , [x[1].replace('\n','') for x in data] ]
+
+# 0 = 6
+# 1 = 2
+# 2 = 5
+# 3 = 5
+# 4 = 4
+# 5 = 5
+# 6 = 6
+# 7 = 3
+# 8 = 7
+# 9 = 6
+
+cnt = Counter()
+
+for items in output:
+    for string in items.split():
+        cnt.update({len(string)})
+
+result = sum([v for k,v in cnt.items() if k in (7,2,3,4)])
+
+print('Task 1 result is:',result)
